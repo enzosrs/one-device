@@ -279,40 +279,6 @@
             window.location.href = 'https://t.me/enzosrs';
         }
 
-        function login() {
-            const licenseKey = document.getElementById('license_key').value;
-            const game = document.getElementById('game_name').value;
-            const deviceID = getDeviceID();
-
-            const xhr = new XMLHttpRequest();
-            xhr.open('GET', `validate_user.php?clintname=${licenseKey}&uid=${deviceID}`, true);
-            xhr.onload = function() {
-                if (xhr.status === 200) {
-                    const response = xhr.responseText.replace(/[^a-zA-Z ]/g, "");
-                    if (['done', 'done1', 'done2'].includes(response)) {
-                        window.location.href = `moye/index.html?username=${licenseKey}&uid=${deviceID}`;
-                    } else {
-                        showErrorMessage('Invalid login credentials');
-                    }
-                } else {
-                    showErrorMessage('Error in request');
-                }
-            };
-            xhr.send();
-        }
-
-        function getDeviceID() {
-            let deviceID = localStorage.getItem('deviceID');
-            if (!deviceID) {
-                deviceID = 'xxxx-xxxx-4xxx-yxxx-xxxx-xxxx-xxxx'.replace(/[xy]/g, function(c) {
-                    var r = Math.random() * 16 | 0,
-                        v = c === 'x' ? r : (r & 0x3 | 0x8);
-                    return v.toString(16);
-                });
-                localStorage.setItem('deviceID', deviceID);
-            }
-            return deviceID;
-        }
 
         function showErrorMessage(message) {
             const errorMessageContainer = document.getElementById('errorMessage');
